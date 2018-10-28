@@ -4,16 +4,19 @@
 
 <form (ngSubmit)="search()">
   <div class="form-group">
-    <label for="search">Wikipedia Search</label>
+    <label for="search">Wiki-Giphy Search</label>
   </div>
-    <input type="text" class="form-control" id="search" name="wikiSearch" required [(ngModel)]='wikiSearch'>
+    <input type="text" class="form-control" id="search" name="searchText" required [(ngModel)]='searchText'>
     <button type="submit" class="btn btn-success">Search</button>
 </form>
 
 
 <div id='resultContainer'>
-  <div *ngIf="results">
-    <div *ngFor="let item of results">
+  <div *ngIf="giphyResults">
+    <img src="{{giphyResults}}">
+  </div>
+  <div *ngIf="wikiResults">
+    <div *ngFor="let item of wikiResults">
       <h3>{{item.title}}</h3>
       <div id="{{item.pageid}}"> {{renderWikiHTML(item.snippet, item.pageid)}}</div>
     </div>

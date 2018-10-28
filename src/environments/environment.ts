@@ -11,6 +11,8 @@ export const firebaseConfig = {
    messagingSenderId: "397961222939"
   };
 
+export const giphyAPIKey = 'w5k1yMDJ6shJD9MUOuldIHiY9WVyGjyb';
+
 export const environment = {
   production: false
 }

@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 // Services
 import { LoginService } from './login/login.service';
 import { WikipediaService } from './wikipedia.service';
+import { GiphyService } from './giphy.service';
 // Firebase
 import { firebaseConfig } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
@@ -36,7 +37,7 @@ import {AuthGuard} from './login/auth.guard';
     HttpModule,
     FormsModule
   ],
-  providers: [LoginService, AuthGuard, WikipediaService],
+  providers: [LoginService, AuthGuard, WikipediaService, GiphyService],
   bootstrap: [AppComponent]
 })
 
