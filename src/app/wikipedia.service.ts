@@ -5,8 +5,10 @@ import {
   RequestOptions
 } from '@angular/http';
 import { Observable } from 'rxjs';
-import 'rxjs/Rx'
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import 'rxjs/Rx';
+import { LoginService } from './login/login.service';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 
 @Injectable({
@@ -15,12 +17,15 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 export class WikipediaService {
   static URL = "https://en.wikipedia.org/w/api.php"
-  searchHistory: any;
+//  searchHistory: any;
   searchHistoryRef: any;
 
-  constructor(private http: Http) {
-    this.searchHistory = [];
-    this.searchHistoryRef= new BehaviorSubject([]);
+  constructor(private http: Http,
+              private loginService: LoginService,
+              private db: AngularFireDatabase) {
+//    this.searchHistory = [];
+    //this.searchHistoryRef= new BehaviorSubject([]);
+    this.searchHistoryRef = this.db.list(`/searchHistory`);
   }
 
   search(searchText): Observable<any[]> {
@@ -41,11 +46,12 @@ export class WikipediaService {
                d.getMinutes(),
                d.getSeconds()].join(':');
 
-    this.searchHistory.push({ Userid: 'sasasasa', searchText: searchText, timestamp: dformat});
-    this.searchHistoryRef.next(this.searchHistory);
+    this.searchHistoryRef.push({ Userid: this.loginService.userUid, searchText: searchText, timestamp: dformat});
+    //this.searchHistoryRef.next(this.searchHistory);
   }
 
-  getSearchHistory(): Observable<any[]>{
-    return this.searchHistoryRef.asObservable();
+  getSearchHistory(){
+    return this.searchHistoryRef.valueChanges();
+    //return this.searchHistoryRef.asObservable();
   }
 }
