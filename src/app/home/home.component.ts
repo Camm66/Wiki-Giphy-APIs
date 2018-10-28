@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WikipediaService } from '../wikipedia.service'
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,8 @@ import { WikipediaService } from '../wikipedia.service'
 export class HomeComponent implements OnInit {
   wikiSearch: string;
   results: any;
-  constructor(private wikipediaService: WikipediaService) { }
+  constructor(private wikipediaService: WikipediaService,
+              private loginService: LoginService) { }
 
   search(){
     this.wikipediaService.search(this.wikiSearch)
