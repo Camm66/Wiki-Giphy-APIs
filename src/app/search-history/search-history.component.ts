@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { WikipediaService } from '../wikipedia.service'
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HistoryService } from '../history.service'
 import { Subscription } from "rxjs/Subscription";
 
 
@@ -11,16 +11,16 @@ import { Subscription } from "rxjs/Subscription";
 export class SearchHistoryComponent implements OnInit {
   searches: any;
   historySubscription: Subscription;
-  constructor(private wikipediaService: WikipediaService) {
+  constructor(private historyService: HistoryService) {
   }
 
   ngOnInit() {
-    this.historySubscription = this.wikipediaService.getSearchHistory()
+    this.historySubscription = this.historyService.getSearchHistory()
     .subscribe((history: any) => { this.searches = history; });
   }
 
-  getHistory(){
-    console.log(this.searches);
+  ngOnDestroy(){
+    this.historySubscription.unsubscribe();
   }
 
 }

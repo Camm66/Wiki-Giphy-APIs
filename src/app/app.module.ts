@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
 import { WikipediaService } from './wikipedia.service';
 import { GiphyService } from './giphy.service';
+import { HistoryService } from './history.service';
 // Firebase
 import { firebaseConfig } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
@@ -37,7 +38,8 @@ import {AuthGuard} from './login/auth.guard';
     HttpModule,
     FormsModule
   ],
-  providers: [LoginService, AuthGuard, WikipediaService, GiphyService],
+  providers: [LoginService, AuthGuard, WikipediaService,
+              GiphyService, HistoryService],
   bootstrap: [AppComponent]
 })
 

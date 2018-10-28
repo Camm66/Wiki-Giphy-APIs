@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WikipediaService } from '../wikipedia.service';
 import { GiphyService } from '../giphy.service';
 import { LoginService } from '../login/login.service';
+import { HistoryService } from '../history.service';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,15 @@ export class HomeComponent implements OnInit {
   giphyResults: any;
   constructor(private wikipediaService: WikipediaService,
               private giphyService: GiphyService,
-              private loginService: LoginService) { }
+              private loginService: LoginService,
+              private historyService: HistoryService) { }
 
   search(){
     this.wikipediaService.search(this.searchText)
       .subscribe((res: any) => this.renderWikiResults(res));
     this.giphyService.search(this.searchText)
       .subscribe((res: any) => this.renderGiphyResults(res));
+    this.historyService.updateHistory(this.searchText);
   }
 
   renderWikiResults(res){
@@ -28,9 +31,7 @@ export class HomeComponent implements OnInit {
   }
 
   renderGiphyResults(res){
-    console.log(res);
     this.giphyResults = res['data'][0]['images']['fixed_height_downsampled']['url'];
-    console.log(res['data'][0]);
   }
 
   renderWikiHTML(html, id){
